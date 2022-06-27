@@ -1,8 +1,6 @@
-import React from "react";
-import { UserCreatePage } from "../../pages/users/user-create-page";
-import { UserListPage } from "../../pages/users/user-list-page";
 import { HomePage } from "../../pages/home/home-page";
-import { Route, Routes } from "react-router-dom";
+import { UserCreatePage } from "../../pages/users/create/user-create-page";
+import { UserListPage } from "../../pages/users/list/user-list-page";
 
 interface IRoute {
   path: string;

@@ -7,7 +7,8 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
-
+import { ApolloProvider } from "@apollo/client";
+import { graphQLClient } from "./app/graphql/client";
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ApolloProvider client={graphQLClient}>
+          <App />
+        </ApolloProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

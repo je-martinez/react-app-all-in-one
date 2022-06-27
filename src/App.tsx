@@ -1,11 +1,9 @@
-import React from "react";
-import "./App.scss";
-import { Col, Container, Row } from "reactstrap";
 import { Link, Route, Routes } from "react-router-dom";
-import { UserCreatePage } from "./pages/users/user-create-page";
-import { UserListPage } from "./pages/users/user-list-page";
+import { Col, Container, Row } from "reactstrap";
+import "./App.scss";
 import { HomePage } from "./pages/home/home-page";
-import { MainApplicationRoutes } from "./app/routes/allRoutes";
+import { UserCreatePage } from "./pages/users/create/user-create-page";
+import { UserListPage } from "./pages/users/list/user-list-page";
 
 export const App = () => {
   return (
