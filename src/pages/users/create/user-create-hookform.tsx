@@ -6,6 +6,8 @@ import { User } from "../../../app/models/users.models";
 import { UserSchemaEnum } from "./user-create-page";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@apollo/client";
+import { CREATE_USER } from "../../../app/graphql/mutations/users.mutations";
 
 interface IComponentProps {
   schema: SchemaOf<User>;
@@ -21,7 +23,10 @@ export const UserCreateHookForm = ({ schema }: IComponentProps) => {
     resolver: yupResolver(schema),
   });
 
+  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
+
   const onSubmit = (data: User) => {
+    createUser({ variables: { input: data } });
     reset();
   };
 
