@@ -1,58 +1,52 @@
 import React from "react";
-import logo from "./logo.svg";
-import { Counter } from "./pages/counter/Counter";
-import "./App.css";
+import "./App.scss";
+import { Col, Container, Row } from "reactstrap";
+import { Link, Route, Routes } from "react-router-dom";
+import { UserCreatePage } from "./pages/users/user-create-page";
+import { UserListPage } from "./pages/users/user-list-page";
+import { HomePage } from "./pages/home/home-page";
+import { MainApplicationRoutes } from "./app/routes/allRoutes";
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <>
+      <Container>
+        <Row>
+          <Col sm={2}>
+            <Row>
+              <Col>
+                <Link to="/">Home</Link>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Link to="/user-create">User Create</Link>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Link to="/user-list">User List</Link>
+              </Col>
+            </Row>
+          </Col>
+          <Col sm={10}>
+            <AppRouter />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
-}
+};
+
+const AppRouter = () => {
+  return (
+    <Routes>
+      <Route path={"/"} element={<HomePage />}></Route>
+      <Route path={"user-create"} element={<UserCreatePage />}></Route>
+      <Route path={"user-list"} element={<UserListPage />}></Route>
+      <Route path="*" element={<HomePage />} />
+    </Routes>
+  );
+};
 
 export default App;
