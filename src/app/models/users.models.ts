@@ -4,7 +4,12 @@ export interface IUsersResponse {
   users: User[];
 }
 
+export interface IUserResponse {
+  users: User;
+}
+
 export interface User {
+  _id: string | undefined;
   name: string;
   age: number;
   email: string;

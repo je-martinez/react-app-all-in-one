@@ -1,9 +1,8 @@
-import { useMutation } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Row } from "reactstrap";
 import { SchemaOf } from "yup";
-import { CREATE_USER } from "../../../app/graphql/mutations/users.mutations";
 import { User } from "../../../app/models/users.models";
 import { UserSchemaEnum } from "./user-create-page";
 
@@ -21,12 +20,17 @@ export const UserCreateHookForm = ({
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
     reset,
   } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    reset(initialValues);
+  }, [initialValues]);
 
   const onSubmit = (data: User) => {
     submitHandler(data, reset);
@@ -74,7 +78,7 @@ export const UserCreateHookForm = ({
           </Row>
           <Row>
             <button type="submit" className="btn btn-primary">
-              Create
+              {getValues()?._id ? "Edit" : "Create"}
             </button>
           </Row>
         </form>

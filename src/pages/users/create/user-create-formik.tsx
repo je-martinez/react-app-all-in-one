@@ -1,13 +1,13 @@
-import React from "react";
+import { Field, Formik, FormikProps, useFormikContext } from "formik";
+import { useEffect, useRef } from "react";
+import { Row } from "reactstrap";
 import { SchemaOf } from "yup";
 import { User } from "../../../app/models/users.models";
-import { Formik, Form, Field } from "formik";
-import { Row } from "reactstrap";
 import { UserSchemaEnum } from "./user-create-page";
 interface IComponentProps {
   schema: SchemaOf<User>;
   initialValues: User;
-  submitHandler: (data: User) => void;
+  submitHandler: (data: User, reset: () => void) => void;
 }
 
 export const UserCreateFormik = ({
@@ -15,18 +15,30 @@ export const UserCreateFormik = ({
   initialValues,
   submitHandler,
 }: IComponentProps) => {
-  const onSubmitAction = (data: User) => {
-    submitHandler(data);
+  // const formikRef = useRef<FormikProps<User>>(null);
+  // const { current } = formikRef || {};
+  // const {} = formikRef || {};
+  // useEffect(() => {
+  //   current?.resetForm();
+  //   console.log("Hola", formikRef);
+  // }, [initialValues]);
+
+  const onSubmitAction = (data: User, reset: () => void) => {
+    submitHandler(data, reset);
   };
 
   return (
     <>
       <Formik
+        // innerRef={formikRef}
+        enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={schema}
-        onSubmit={onSubmitAction}
+        onSubmit={(values, { resetForm }) => {
+          onSubmitAction(values, resetForm);
+        }}
       >
-        {({ errors, touched }) => (
+        {({ values, errors, touched }) => (
           <>
             <Row>
               <div className="form-group">
@@ -66,7 +78,7 @@ export const UserCreateFormik = ({
             </Row>
             <Row>
               <button type="submit" className="btn btn-primary">
-                Create
+                {values?._id ? "Edit" : "Create"}
               </button>
             </Row>
           </>
