@@ -56,7 +56,7 @@ export const PanelOptions = ({ user }: IPanelOptionsProps) => {
       <p>
         {" "}
         <Button variant="primary" size="sm" onClick={goToEdit}>
-          Editar
+          Edit
         </Button>
       </p>
     </>
