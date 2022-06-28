@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Nav, NavItem, NavLink, TabContent, TabPane } from "reactstrap";
-import * as yup from "yup";
-import { SchemaOf } from "yup";
+
 import { IUserResponse, User } from "../../../app/models/users.models";
 import { UserCreateFormik } from "./user-create-formik";
 import { UserCreateHookForm } from "./user-create-hookform";
@@ -14,19 +13,13 @@ import {
 import { useParams, useNavigate } from "react-router-dom";
 import { ExecuteQuery } from "../../../app/services/graphql.service";
 import { USERS_GET_BY_ID } from "../../../app/graphql/queries/users.queries";
+import { userSchemaValidation } from "./user-schema-validation";
 
 export enum UserSchemaEnum {
   name = `name`,
   email = `email`,
   age = `age`,
 }
-
-const schemaValidation: SchemaOf<User> = yup.object().shape({
-  _id: yup.string().notRequired(),
-  name: yup.string().required(),
-  email: yup.string().required(),
-  age: yup.number().required(),
-});
 
 const enum TabControlEnum {
   HOOKFORM = "HOOKFORM",
@@ -124,14 +117,14 @@ export const UserCreatePage = () => {
         <TabContent activeTab={currentTab}>
           <TabPane tabId={TabControlEnum.HOOKFORM}>
             <UserCreateHookForm
-              schema={schemaValidation}
+              schema={userSchemaValidation}
               initialValues={initialValues}
               submitHandler={createOrEditUser}
             />
           </TabPane>
           <TabPane tabId={TabControlEnum.FORMIK}>
             <UserCreateFormik
-              schema={schemaValidation}
+              schema={userSchemaValidation}
               initialValues={initialValues}
               submitHandler={createOrEditUser}
             />

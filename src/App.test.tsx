@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
 import { graphQLClient } from "./app/graphql/client";
 
-test("Sidebar Links", () => {
+test("Sidebar Links <App>", () => {
   const LabelsLinks = ["Home", "User Create", "User List"];
 
   const { getByText, getAllByText } = render(

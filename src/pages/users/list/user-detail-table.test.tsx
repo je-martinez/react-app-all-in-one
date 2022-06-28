@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { User } from "../../../app/models/users.models";
 import { UserDetailTable } from "./user-detail-table";
 
-test("Render List Elements", () => {
+test("Render List of Users <User Detail Table>", () => {
   const fakeData: User[] = [
     {
       _id: "fake_user_1",
