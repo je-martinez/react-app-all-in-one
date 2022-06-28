@@ -1,6 +1,10 @@
 import { Link, Route, Routes } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import "./App.scss";
+import {
+  AllRoutesEnum,
+  DefaultRoutesEnum,
+} from "./app/constants/routes.constants";
 import { HomePage } from "./pages/home/home-page";
 import { UserCreatePage } from "./pages/users/create/user-create-page";
 import { UserListPage } from "./pages/users/list/user-list-page";
@@ -39,11 +43,17 @@ export const App = () => {
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path={"/"} element={<HomePage />}></Route>
-      <Route path={"user-create"} element={<UserCreatePage />}></Route>
-      <Route path={"user-edit/:id"} element={<UserCreatePage />}></Route>
-      <Route path={"user-list"} element={<UserListPage />}></Route>
-      <Route path="*" element={<HomePage />} />
+      <Route path={DefaultRoutesEnum.MAIN} element={<HomePage />}></Route>
+      <Route
+        path={AllRoutesEnum.USER_CREATE}
+        element={<UserCreatePage />}
+      ></Route>
+      <Route
+        path={AllRoutesEnum.USER_EDIT}
+        element={<UserCreatePage />}
+      ></Route>
+      <Route path={AllRoutesEnum.USER_LIST} element={<UserListPage />}></Route>
+      <Route path={DefaultRoutesEnum.NOT_FOUND} element={<HomePage />} />
     </Routes>
   );
 };
