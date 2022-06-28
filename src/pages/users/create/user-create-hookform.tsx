@@ -1,33 +1,35 @@
-import React from "react";
+import { useMutation } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Col, Row } from "reactstrap";
+import { Row } from "reactstrap";
 import { SchemaOf } from "yup";
+import { CREATE_USER } from "../../../app/graphql/mutations/users.mutations";
 import { User } from "../../../app/models/users.models";
 import { UserSchemaEnum } from "./user-create-page";
-import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@apollo/client";
-import { CREATE_USER } from "../../../app/graphql/mutations/users.mutations";
 
 interface IComponentProps {
   schema: SchemaOf<User>;
+  initialValues: User;
+  submitHandler: (data: User, reset: () => void) => void;
 }
 
-export const UserCreateHookForm = ({ schema }: IComponentProps) => {
+export const UserCreateHookForm = ({
+  schema,
+  initialValues,
+  submitHandler,
+}: IComponentProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm({
+    defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
-  const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
-
   const onSubmit = (data: User) => {
-    createUser({ variables: { input: data } });
-    reset();
+    submitHandler(data, reset);
   };
 
   return (
